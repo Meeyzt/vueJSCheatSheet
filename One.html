@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue.js | CheatSheet</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h3>{{title}}</h3>
+      <button>{{btnTitle}}</button>
+      <p>{{pText}}</p>
+      <!-- OR
+        <p v-text="pText"></p> 
+      -->
+      <a v-bind:href="link" v-bind:data-id="dataId" v-text="aText"></a>
+      <!-- OR
+    <a v-bind:href="link" v-bind:data-id="dataId">{{aText}}</a>
+    -->
+      <p v-html="details"></p>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          title: "VueJS CheatSheet",
+          btnTitle: "Push Me",
+          pText:
+            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, molestiae.",
+          link: "https://github.com/meeyzt",
+          aText: "Github",
+          dataId: "22",
+          details:
+            "<u>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, molestiae.</u>",
+        },
+      });
+    </script>
+  </body>
+</html>
