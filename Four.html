@@ -37,6 +37,12 @@
             return this.age >= 18 ? "Reşittir.." : "Reşit Değildir.";
           },
         },
+        watch: {
+          age(newValue, oldValue) {
+            console.log("New : ", newValue);
+            console.log("Old : ", oldValue);
+          },
+        },
       });
     </script>
   </body>
