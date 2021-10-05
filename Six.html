@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Vue.Js</title>
+    <style>
+      #app {
+        background-color: #333;
+        color: wheat;
+        border-radius: 10px;
+        box-shadow: 7px 7px 5px 5px #777;
+      }
+      .wallet {
+        text-align: center;
+        color: green;
+        padding: 10px;
+        font-size: 30px;
+        font-weight: bold;
+      }
+      .products {
+        display: grid;
+        grid-gap: 10px;
+        padding: 10px;
+        grid-template-columns: auto auto auto;
+      }
+      .products > div {
+        background-color: #555;
+        text-align: center;
+        padding: 20px 0;
+        font-size: 30px;
+        border-radius: 5px;
+        box-shadow: 3px 3px 3px 3px #222;
+      }
+      .products > div > span {
+        padding: 0 20px;
+      }
+      .title {
+        display: block;
+      }
+      .btn {
+        display: block;
+      }
+      .input {
+        text-align: center;
+      }
+      .input > input {
+        border: 0;
+        border-radius: 8px;
+        font-size: 30px;
+        box-shadow: 3px 3px 3px 3px #222;
+        padding: 0 7px;
+      }
+      .amount {
+        padding-top: 15px;
+        text-align: center;
+        font-size: 25px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+      button {
+        color: white;
+        background-color: darkgreen;
+        border: 0;
+        padding: 5px;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      button:hover {
+        background-color: rgb(26, 136, 26);
+        color: wheat;
+      }
+      button:disabled {
+        background-color: rgb(57, 58, 57);
+        color: wheat;
+      }
+      .alert {
+        text-align: center;
+        color: red;
+        font-weight: bold;
+        padding-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <p class="wallet">You have ${{wallet}}</p>
+      <p class="alert" v-if="showError">{{alert}}</p>
+      <p class="amount"><b>Amount</b></p>
+      <div class="input"><input type="text" v-model="buyAmount" /></div>
+      <div class="products">
+        <div v-for="product in productList">
+          <span class="title">{{product.title}}</span>
+          <span>{{product.count}}</span>
+          <span>${{product.price}}</span>
+          <span class="btn" @click="buyProduct(product)"
+            ><button :disabled="product.count==0">Buy</button></span
+          >
+        </div>
+      </div>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          wallet: 1000,
+          buyAmount: 0,
+          alert: "",
+          showError: false,
+          productList: [
+            {
+              title: "Apple",
+              price: 1,
+              count: 10,
+            },
+            {
+              title: "Avacado",
+              price: 15,
+              count: 5,
+            },
+            {
+              title: "Grapes",
+              price: 7,
+              count: 100,
+            },
+            {
+              title: "Cherry",
+              price: 3,
+              count: 90,
+            },
+            {
+              title: "Lemon",
+              price: 0.25,
+              count: 100,
+            },
+            {
+              title: "Watermelon",
+              price: 1,
+              count: 100,
+            },
+            {
+              title: "Banana",
+              price: 5,
+              count: 20,
+            },
+            {
+              title: "Blueberry",
+              price: 0.75,
+              count: 20,
+            },
+            {
+              title: "Pineapple",
+              price: 10,
+              count: 20,
+            },
+          ],
+        },
+        methods: {
+          buyProduct(product) {
+            if (this.buyAmount > product.count) {
+              showError = true;
+              this.alert = "Quantity entered cannot be greater than stock";
+            } else {
+              showError = false;
+              const amount = this.buyAmount == 0 ? 1 : this.buyAmount;
+              if (amount * product.price <= this.wallet) {
+                console.log("asd");
+                product.count = product.count - amount;
+                this.wallet = this.wallet - amount * product.price;
+              } else {
+                console.log("Error");
+                this.showError = true;
+                this.alert = "You have not money";
+              }
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
